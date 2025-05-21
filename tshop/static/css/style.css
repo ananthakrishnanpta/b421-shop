@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    /* background-color: blue; */
+    header {
+        height: 50px;
+        nav {
+            height: 100%;
+        }
+    }
+
+    main {
+        margin-top: 52px;
+        margin-bottom: 25px;
+
+    }
+
+    footer {
+        height: 25px;
+    }
+}

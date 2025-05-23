@@ -6,7 +6,11 @@ Home
 
 
 {% block content %}
-<div class="container-fluid bg-primary">
-    
+<div class="container-fluid product-container">
+    {% for product in products %}
+        <!-- Product Card -->
+         {% include 'includes/components/productCard.html' %}
+
+    {% endfor %}
 </div>
 {% endblock %}

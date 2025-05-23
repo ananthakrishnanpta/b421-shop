@@ -1,0 +1,22 @@
+{% load static %}
+<div class="card">
+    <div class="card-img">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{product.name}}'s picture">
+        {% else %}
+        <img src="{% static 'images/placeholders/no-image.jpg' %}" alt="">
+        {% endif %}
+    </div>
+
+    <div class="card-body">
+        <div class="card-title">
+            <h5>{{ product.name }}</h5>
+        </div>
+        <p class="card-text">
+            &#8377; {{ product.price }}
+        </p>    
+        <a href="" class="btn btn-primary">
+            Add to Cart
+        </a>
+    </div>
+</div>

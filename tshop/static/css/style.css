@@ -6,10 +6,12 @@
 
 
 body {
+
     /* background-color: blue; */
     header {
         z-index: 10;
         height: 50px;
+
         nav {
             height: 100%;
         }
@@ -33,15 +35,17 @@ body {
                 width: 200px;
                 height: 250px;
                 margin: auto;
-                margin-top: 20px ;
+                margin-top: 20px;
                 overflow: hidden;
                 box-shadow: 1px 1px 1px 1px rgb(194, 194, 194);
                 background-color: rgb(238, 251, 255);
                 transition-duration: 2s;
+
                 /* background-color: black; */
                 .card-img {
                     height: 60%;
                     width: 100%;
+
                     img {
                         height: 100%;
                         width: 100%;
@@ -50,6 +54,7 @@ body {
                         filter: brightness(30%) saturate(0%);
                     }
                 }
+
                 .card-body {
                     padding: 5px;
                     height: 40%;
@@ -57,29 +62,38 @@ body {
                     display: flex;
                     flex-direction: column;
                     justify-content: space-evenly;
-                    .card-title, .card-text {
+
+                    .card-title,
+                    .card-text {
                         padding: 2px;
                         height: 25px;
                         /* border: 1px solid; */
                         margin-bottom: 0;
+
+                        a {
+                            font-size: medium;
+                            text-decoration: none;
+                        }
                     }
-                    
+
                     a {
                         width: 50%;
                         font-size: small;
                         height: 30px;
-                        padding:3px;
+                        padding: 3px;
                         margin: auto;
-                        
+
                     }
                 }
             }
+
             .card:hover {
                 background-color: white;
                 transition-duration: 0.5s;
                 box-shadow: 1px 1px 2px 1px rgb(62, 213, 255);
                 transform: scale(1.05);
-                .card-img{
+
+                .card-img {
                     img {
                         filter: brightness(100%) saturate(50%);
                         transition-duration: 0.5s;
@@ -89,9 +103,17 @@ body {
 
         }
 
+        
+
     }
 
     footer {
         height: 25px;
     }
 }
+
+.round-edge {
+            border-radius: 5px;
+            overflow: hidden;
+
+        }

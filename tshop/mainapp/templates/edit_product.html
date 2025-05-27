@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Product : {{product.name}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <form method="post" class="form-control w-50 bg-dark text-light m-auto" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="row w-100">
+            <label for="{{field.name}}" class="col-4">{{field.name}}</label>
+            <div class="col-6">
+                {{field }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Save Product</button>
+    </form>
+</div>
+{% endblock %}

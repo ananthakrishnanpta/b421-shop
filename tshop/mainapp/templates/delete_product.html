@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Product : {{product.name}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <img src="{{product.image.url}}" alt="" class="w-100 round-edge ">
+        </div>
+
+        <div class="col">
+            <h4>
+                {{product.name}}
+            </h4>
+            <p>
+                &#8377; {{ product.price }}
+            </p>
+            {% if product.desc %}
+            <div class="text-secondary">
+                {{product.desc}}
+            </div>
+            {% endif %}
+            <div>
+                <h3>Are you sure you want to delete <span class="text-warning">{{product.name}}</span>?</h3>
+                <div class="row w-60">
+                    <form method="post" class="col-6">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary w-100">Delete Product</button>
+                </form>
+                <a href="{% url 'prod_detail' product.id %}" class="btn btn-warning col-6">Cancel</a>
+
+                </div>
+                
+
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}

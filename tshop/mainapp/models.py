@@ -26,8 +26,9 @@ class Product(models.Model):
                                                     # in the `MEDIA_URL`.
                                                     # The File path of the stored image will be stored in this column
                                                     # as VARCHAR in the db.
-
+    desc = models.TextField(max_length=500, null = True)
     # overriding the __str__ method
 
     def __str__(self):
         return f"Product > {self.name}"
+    

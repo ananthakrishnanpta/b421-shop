@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{user.username}}'s Cart
+{% endblock %}
+
+{% block content %}
+
+<script src="{% static 'js/scripts.js' %}"></script>
+<div class="container">
+    <div class="cart-container">
+        <table class="table">
+            <tr class="w-100">
+                <th></th>
+                <th>Product Name</th>
+                <th>
+                    Price 
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Sub Total
+                </th>
+                <th></th>
+            </tr>
+            
+            {% for item in cart_items %}
+            <!-- item starts here -->
+            <tr id = "item-{{item.id}}">
+                <td>
+                    <img src="{{item.product.image.url}}" alt="pic of {{item.product.name}}" class="thumbnail">
+                </td>
+                <td>
+                    <a href="{% url 'prod_detail' item.product.id %}">
+                    {{item.product.name}}
+                    </a>
+                </td>
+
+                <td>
+                    &#8377; {{item.product.price}}
+                </td>
+
+                <td>
+                    <button class="btn btn-danger" id = "btn-rem-{{item.id}}" onclick="updateCart('{{item.id}}', false)">
+                        -
+                    </button>
+                    <span id = "item-qnty-{{item.id}}">
+                        {{ item.quantity }}
+                    </span>
+                    <button class="btn btn-primary" id = "btn-add-{{item.id}}" onclick="updateCart('{{item.id}}', true)">
+                        +
+                    </button>
+                </td>
+
+                <td>
+                   &#8377; <span id = "sub-total-{{item.id}}">{{item.sub_total}}</span>
+                </td>
+                
+                <td>
+                    <a href="{% url 'rem_from_cart' item.id %}" class="btn btn-danger">Remove From Cart</a>
+                </td>
+
+            </tr>
+            <!-- item ends here -->
+        {% empty %}
+        <tr>
+            <td colspan="6">
+                <div>
+                    No items ... <a href="{% url 'homepage' %}"  class="btn btn-secondary">Go Shop</a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <td>
+                <a href="{% url 'homepage' %}" class="btn btn-primary">Buy more!!!</a>
+            </td>
+            <td colspan="3" class="bg-dark no-border"></td>
+            <td class="bg-warning">
+               Total: <span id = "total-price">{{total_price}}</span>
+            </td>
+        </tr>
+
+
+        </table>
+    </div>
+</div>
+{% endblock %}

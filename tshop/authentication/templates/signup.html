@@ -5,9 +5,9 @@ Sign Up
 
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid d-flex justify-content-center">
 
-    <form method="post">
+    <form method="post" class="form w-20 border py-3 px-3">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign Up</button>

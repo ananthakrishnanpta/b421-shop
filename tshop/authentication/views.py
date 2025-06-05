@@ -8,14 +8,16 @@ from django.urls import reverse_lazy # finds the url path associated with a url 
 
 from django.views.generic import CreateView
 
+from .forms import CustomLoginForm, CustomRegistrationForm
 # Create your views here.
 
 class CustomLoginView(LoginView):
     template_name = 'signin.html'
-    success_url = '/'
+    form_class  = CustomLoginForm
+    
 
 class UserRegisterView(CreateView):
     model = User 
+    form_class = CustomRegistrationForm
     template_name = 'signup.html'
-    fields = '__all__'
     success_url = reverse_lazy('signin') # redirects user to login page after registeration

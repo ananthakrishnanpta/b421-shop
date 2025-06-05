@@ -103,6 +103,19 @@ body {
 
         }
 
+
+        .cart-container {
+            table {
+                tr {
+                    /* border: 1px solid yellow; */
+                    th {
+                        background-color: black;
+                        /* border: greenyellow; */
+                        color: white;
+                    }
+                }
+            }
+        }
         
 
     }
@@ -117,3 +130,10 @@ body {
             overflow: hidden;
 
         }
+
+.thumbnail {
+    height: 40px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    overflow: hidden;
+}

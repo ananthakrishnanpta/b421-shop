@@ -26,9 +26,14 @@
             </div>
             {% endif %}
             <div class="w-100 mx-2 my-5 row justify-content-evenly">
-                <a href="" class="btn btn-primary col-3">Add to Cart</a>
+
+                {% if user.is_staff %}
                 <a href="{% url 'edit_prod' product.id %}" class="btn btn-secondary col-3">Edit Product</a>
                 <a href="{% url 'del_prod' product.id %}" class="btn btn-danger col-3">Delete Product</a>
+                {% else %}
+                <a href="" class="btn btn-primary col-3">Add to Cart</a>
+                {% endif %}
+                
             </div>
             
         </div>

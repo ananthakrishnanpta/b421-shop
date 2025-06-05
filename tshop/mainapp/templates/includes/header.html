@@ -8,20 +8,37 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'add_prod' %}">Add Product</a>
-        </li>
+        
 
+        <!-- Auth links -->
+         {% if not user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signin' %}">Sign in</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
         </li>
-
+        {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="">Log out</a>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="nav-link">
+              Logout
+            </button>
+          </form>
         </li>
+
+          {% if user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_prod' %}">Add Product</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="">{{user.username}}'s Cart</a>
+          </li>
+          {% endif %}
+        {% endif %}
+        <!-- Auth links end -->
 
 
         <li class="nav-item dropdown">
@@ -36,7 +53,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link disabled" aria-disabled="true">{{user.username}}</a>
         </li>
       </ul>
       <form class="d-flex" role="search">

@@ -1,91 +1,75 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}
-{{user.username}}'s Cart
+{{ user.username }}'s Cart
 {% endblock %}
 
 {% block content %}
+{% if cart_items %}
 
-<script src="{% static 'js/scripts.js' %}"></script>
-<div class="container">
-    <div class="cart-container">
-        <table class="table">
-            <tr class="w-100">
-                <th></th>
-                <th>Product Name</th>
-                <th>
-                    Price 
-                </th>
-                <th>
-                    Quantity
-                </th>
-                <th>
-                    Sub Total
-                </th>
-                <th></th>
-            </tr>
-            
-            {% for item in cart_items %}
-            <!-- item starts here -->
-            <tr id = "item-{{item.id}}">
-                <td>
-                    <img src="{{item.product.image.url}}" alt="pic of {{item.product.name}}" class="thumbnail">
-                </td>
-                <td>
-                    <a href="{% url 'prod_detail' item.product.id %}">
-                    {{item.product.name}}
-                    </a>
-                </td>
+<table class="table">
+    <thead>
+        <th>
 
-                <td>
-                    &#8377; {{item.product.price}}
-                </td>
+        </th>
+        <th>
+            Product
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Sub Total
+        </th>
+        <th>
 
-                <td>
-                    <button class="btn btn-danger" id = "btn-rem-{{item.id}}" onclick="updateCart('{{item.id}}', false)">
-                        -
-                    </button>
-                    <span id = "item-qnty-{{item.id}}">
-                        {{ item.quantity }}
-                    </span>
-                    <button class="btn btn-primary" id = "btn-add-{{item.id}}" onclick="updateCart('{{item.id}}', true)">
-                        +
-                    </button>
-                </td>
-
-                <td>
-                   &#8377; <span id = "sub-total-{{item.id}}">{{item.sub_total}}</span>
-                </td>
-                
-                <td>
-                    <a href="{% url 'rem_from_cart' item.id %}" class="btn btn-danger">Remove From Cart</a>
-                </td>
-
-            </tr>
-            <!-- item ends here -->
-        {% empty %}
-        <tr>
-            <td colspan="6">
-                <div>
-                    No items ... <a href="{% url 'homepage' %}"  class="btn btn-secondary">Go Shop</a>
+        </th>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr class="h-10" id="cart-item-{{item.id}}">
+            <td class="w-auto">
+                {% if item.product.pic %}
+                    <img src="{{item.product.pic.url}}" height="20px" alt="An image of {{item.product.name}}">
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'prod_detail' item.product.id %}">{{item.product.name }}</a>
+            </td>
+            <td>
+                {{item.product.price}}
+            </td>
+            <td class="grid">
+                <div class="row w-100">            
+                <button onclick="updateCart('{% url 'rem_quantity' item.id %}', {{ item.id }}, false, '{{ csrf_token }}')" class="btn btn-outline-secondary col align-middle">
+                    -
+                </button>
+                    <p id="quantity-{{ item.id }}" class="col align-middle text-center">{{item.quantity}}</p>
+                <button onclick="updateCart('{% url 'add_quantity' item.id %}', {{ item.id }}, true, '{{ csrf_token }}')" class="btn btn-outline-secondary col align-middle">+</button>
                 </div>
+            </td>
+            <td id="total-price-{{ item.id }}">
+                {{item.sub_total}}
+            </td>
+            <td>
+                <a href="{% url 'rem_from_cart' item.id %}" class="btn btn-danger">Remove from Cart</a>
             </td>
         </tr>
         {% endfor %}
-
         <tr>
-            <td>
-                <a href="{% url 'homepage' %}" class="btn btn-primary">Buy more!!!</a>
-            </td>
-            <td colspan="3" class="bg-dark no-border"></td>
-            <td class="bg-warning">
-               Total: <span id = "total-price">{{total_price}}</span>
-            </td>
+            <th colspan="4" class="text-center text-warning bg-dark">Total</th>
+            <td class="bg-secondary"><strong>Rs.<span id="overall-total">{{ total_price }}</span></strong></td>
+           <td><a href="" class="btn btn-warning">Place your order</a></td>
         </tr>
+    </tbody>
+</table>
 
+{% else %}
+Cart is Empty!!!
+{% endif %}
 
-        </table>
-    </div>
-</div>
+<a href="{% url 'homepage' %}" class="btn btn-sm btn-primary">Shop More</a>
 {% endblock %}

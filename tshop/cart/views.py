@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .models import CartItem
 from mainapp.models import Product
 
+# implementing AJAX to update cart item quantity without refresh
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 
 # 1. C
@@ -33,13 +37,24 @@ def viewCart(request):
 # U
 
 def addQuantity(request, cart_item_id):
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
+    cart_item.quantity += 1
+    cart_item.save()
+    overall_total = sum(item.sub_total() for item in CartItem.objects.filter(user=request.user))
+    return JsonResponse({'quantity': cart_item.quantity, 'total_price': cart_item.sub_total(), 'overall_total': overall_total})
 
-    pass 
 
 def remQuantity(request, cart_item_id):
-    pass
-
-
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+        overall_total = sum(item.sub_total() for item in CartItem.objects.filter(user=request.user))
+        return JsonResponse({'quantity': cart_item.quantity, 'total_price': cart_item.sub_total(), 'overall_total': overall_total})
+    else:
+        cart_item.delete()
+        overall_total = sum(item.sub_total() for item in CartItem.objects.filter(user=request.user))
+        return JsonResponse({'quantity': 0, 'total_price': 0, 'overall_total': overall_total})
 
 # D
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{{ user.username }}'s Cart
+{{ user.username.capitalize }}'s Cart
 {% endblock %}
 
 {% block content %}
@@ -62,7 +62,7 @@
         <tr>
             <th colspan="4" class="text-center text-warning bg-dark">Total</th>
             <td class="bg-secondary"><strong>Rs.<span id="overall-total">{{ total_price }}</span></strong></td>
-           <td><a href="" class="btn btn-warning">Place your order</a></td>
+           <td><a href="{% url 'create_order' %}" class="btn btn-warning">Place your order</a></td>
         </tr>
     </tbody>
 </table>

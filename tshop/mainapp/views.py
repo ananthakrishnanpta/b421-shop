@@ -6,10 +6,14 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from .models import Product
 # Create your views here.
 
+# To check for authentication
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # CRUD operations of Product model
 
 # 1. Create (Insert statements)
-class AddProduct(CreateView):
+
+class AddProduct(LoginRequiredMixin, CreateView):
     model = Product
     fields = '__all__'
     template_name = 'add_product.html'
@@ -33,14 +37,14 @@ class ProductDetails(DetailView):
     context_object_name = 'product'
 
 # 3. Update view (Update statement)
-class EditProduct(UpdateView):
+class EditProduct(LoginRequiredMixin, UpdateView):
     model = Product
     fields = '__all__'
     template_name = 'edit_product.html'
     success_url = '/'
 
 # 4. Delete view (Delete statement)
-class DeleteProduct(DeleteView):
+class DeleteProduct(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'delete_product.html'
     success_url = '/'

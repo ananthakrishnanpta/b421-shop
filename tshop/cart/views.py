@@ -6,9 +6,12 @@ from mainapp.models import Product
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # 1. C
+
+@login_required
 def addToCart(request, product_id):
     this_product = Product.objects.get(id = product_id)
 
@@ -20,7 +23,7 @@ def addToCart(request, product_id):
     return redirect('view_cart')
 
 # 2. R 
-
+@login_required
 def viewCart(request):
     # select * from cartitem where id = request.user.id;
     items = CartItem.objects.filter(user = request.user)
@@ -35,7 +38,7 @@ def viewCart(request):
 
 
 # U
-
+@login_required
 def addQuantity(request, cart_item_id):
     cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
     cart_item.quantity += 1
@@ -43,7 +46,7 @@ def addQuantity(request, cart_item_id):
     overall_total = sum(item.sub_total() for item in CartItem.objects.filter(user=request.user))
     return JsonResponse({'quantity': cart_item.quantity, 'total_price': cart_item.sub_total(), 'overall_total': overall_total})
 
-
+@login_required
 def remQuantity(request, cart_item_id):
     cart_item = get_object_or_404(CartItem, id=cart_item_id, user=request.user)
     if cart_item.quantity > 1:
@@ -57,7 +60,7 @@ def remQuantity(request, cart_item_id):
         return JsonResponse({'quantity': 0, 'total_price': 0, 'overall_total': overall_total})
 
 # D
-
+@login_required
 def remFromCart(request, cart_item_id):
     
     this_item = CartItem.objects.get(id = cart_item_id)

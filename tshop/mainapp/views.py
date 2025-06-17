@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.template import loader
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 # Importing generic Class Based Views (CBV)
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -24,7 +27,8 @@ class AddProduct(LoginRequiredMixin, CreateView):
 def homeView(request):
     prods = Product.objects.all() # SELECT * FROM mainapp_product;
     context = {
-        'products' : prods
+        'products' : prods,
+        'search_bar' : True
 
     }
     template = 'home.html'
@@ -48,3 +52,19 @@ class DeleteProduct(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'delete_product.html'
     success_url = '/'
+
+
+
+
+def searchView(request):
+    query = request.GET.get('search_text')
+
+    result_products = Product.objects.filter(name__icontains = query)
+    context =  {
+        'products' : result_products,
+        'query' : query,
+        'search_bar' : True
+    }
+
+    template = loader.get_template('search_results.html')
+    return HttpResponse(template.render(context, request))

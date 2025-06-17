@@ -1,17 +1,18 @@
 <!-- header.html -->
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme = 'dark'>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme='dark'>
   <div class="container-fluid">
     <a class="navbar-brand text-info" href="{% url 'homepage' %}">T Shop</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-        
+
+
 
         <!-- Auth links -->
-         {% if not user.is_authenticated %}
+        {% if not user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signin' %}">Sign in</a>
         </li>
@@ -28,38 +29,42 @@
           </form>
         </li>
 
-          {% if user.is_staff %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'add_prod' %}">Add Product</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="">{{user.username.capitalize}}'s Cart</a>
-          </li>
-          {% endif %}
+        {% if user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_prod' %}">Add Product</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="">{{user.username.capitalize}}'s Cart</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'order_history' %}">Past Orders</a></li>
+            <li><a class="dropdown-item" href="{% url 'order_history_2' %}">Past Orders 2</a></li>
+
+          </ul>
+        </li>
+        {% endif %}
         {% endif %}
         <!-- Auth links end -->
 
 
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li> -->
+        
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">{{user.username.capitalize}}</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <!-- search -->
+                 {% if search_bar %}
+                <form class="d-flex" role="search" method="get" action="{% url 'search' %}">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_text" value="{{query}}">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% endif %}
+                <!-- end search -->
     </div>
   </div>
 </nav>

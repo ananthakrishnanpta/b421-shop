@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Z Shop | Search results for {{query}}
+{% endblock %}
+
+{% block content %}
+
+<span>Search results for : {{query}}</span>
+
+<div class="container-fluid product-container">
+    {% for product in products %}
+        <!-- Product Card -->
+         {% include 'includes/components/productCard.html' %}
+
+    {% endfor %}
+</div>
+
+{% endblock %}

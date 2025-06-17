@@ -26,11 +26,11 @@ Order History
                     {% for item in order.order_details.all %}
                     <div class="d-flex align-items-center mb-3">
                         <div class="thumbnail me-3">
-                            <img src="{{ item.order_item.img.url }}" alt="{{ item.order_item.name }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="{{ item.order_item.image.url }}" alt="{{ item.order_item.name }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
                         </div>
                         <div class="item-details flex-grow-1">
                             <p class="mb-1">
-                                <a href="{% url 'prod_details' item.order_item.id %}" class="text-decoration-none text-dark">
+                                <a href="{% url 'prod_detail' item.order_item.id %}" class="text-decoration-none text-dark">
                                     <strong>{{ item.order_item.name }}</strong>
                                 </a>
                             </p>

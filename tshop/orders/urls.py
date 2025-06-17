@@ -13,7 +13,7 @@ urlpatterns = [
     path('orders/history/v2', views.order_history_2, name='order_history_2'),
     
     # Route to view details of a specific order
-    path('<int:order_id>/', views.order_detail, name='order_detail'),
+    path('orders/history/details/<int:order_id>/', views.order_detail, name='order_detail'),
     
     # Route to add a new address
     path('address/add/', views.add_address, name='add_address'),

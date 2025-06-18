@@ -1,17 +1,62 @@
-For every new app in the project
+# ** A simple Shop front in Django**
+This project explores:
+- MVT Architecture
+- Payment integration using Razorpay
+- Django authentication system
 
-- Ensure that your project virtual environment is activated.
-- Ensure that your terminal's pwd is the django project folder
 
-1. `python manage.py startapp <app_name>`
-    - for example -  `python manage.py startapp mainapp`
+---
 
-2. Now, to include this app in the project,
-    - Go to project root folder and open settings.py
-    - Locate the python list named `INSTALLED_APPS`.
-        -  This contains the list of app names utilized by the project.
-    - Add the newly created app_name as a string at the end of the list.
+`Setup for the project`
 
-3. Our project root folder has a `urls.py` meant for routing requests.
- - Now that we are dividing our project into several apps in order to increase the maintainability and readability of the project, we have to divide the job of routing between the apps. 
- - For this purpose, we will be creating an additional `urls.py` module in every individual app and finally importing and utilizing them all together in the project `urls.py` which will be the main routing point.
+- Open terminal and navigate to the location you want to setup the project in.
+
+```bash
+git clone https://github.com/ananthakrishnanpta/b421-shop.git
+cd b421-shop
+```
+
+- Setup virtual environment
+
+```bash
+python -m venv virt
+```
+- Activate the virtual environment.
+
+```bash
+virt/Scripts/activate
+```
+
+- Install Python dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Navigate to Django project folder
+
+```bash
+cd tshop
+```
+
+- Migrate schema to DB
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+- Create superuser account to access Admin panel.
+```bash
+python manage.py createsuperuser
+```
+
+- Run server
+```bash
+python manage.py runserver
+```
+
+
+
+
+
